@@ -27,7 +27,7 @@ Run
 
 Insert your HyperTrack publishable key to `const PUBLISHABLE_KEY` in `App.tsx`
 
-### [Set up silent push notifications](https://hypertrack.com/docs/install-sdk-expo/#step-4-set-up-silent-push-notifications)
+### [Set up silent push notifications](https://hypertrack.com/docs/install-sdk-expo/#set-up-silent-push-notifications)
 
 HyperTrack SDK needs Firebase Cloud Messaging to manage on-device tracking as well as enable using HyperTrack cloud APIs from your server to control the tracking.
 
