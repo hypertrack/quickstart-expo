@@ -38,7 +38,10 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.hypertrack.quickstart.expo.ios"
+      "bundleIdentifier": "com.hypertrack.quickstart.expo.ios",
+      "infoPlist": {
+        "UIBackgroundModes": ["location", "fetch"]
+      }
     },
     "android": {
       "adaptiveIcon": {
