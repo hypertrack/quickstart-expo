@@ -5,12 +5,16 @@ alias sm := start-metro
 alias cn := clear-nm
 alias cen := clear-expo-plugin-nm
 
-prebuild-android:
+hooks:
+    chmod +x .githooks/pre-push
+    git config core.hooksPath .githooks
+
+prebuild-android: hooks
     rm -rf android 
     npx expo prebuild --no-install --platform android
     # --clean
 
-prebuild-ios:
+prebuild-ios: hooks
     rm -rf ios 
     npx expo prebuild --no-install --platform ios
     cd ios && pod install && cd ..
@@ -31,6 +35,5 @@ clear-nm:
 clear-expo-plugin-nm:
     rm -rf node_modules/hypertrack-sdk-expo
 
-use-local-expo-dependency:
-    just clear-plugin-nm
+use-local-expo-dependency: hooks clear-expo-plugin-nm
     yarn add hypertrack-sdk-expo@file:../sdk-expo
