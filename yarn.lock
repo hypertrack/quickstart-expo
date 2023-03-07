@@ -4094,9 +4094,9 @@ __metadata:
   linkType: hard
 
 "electron-to-chromium@npm:^1.4.284":
-  version: 1.4.322
-  resolution: "electron-to-chromium@npm:1.4.322"
-  checksum: 195796a25f28b315d4e2ee17f8aac9d8f7a98c8aaad1b9633113cf6ea8394094b45132e2a7f4e191ec1492303e54fb23667c9ce7794a5a57c961a37aaccaa6cd
+  version: 1.4.323
+  resolution: "electron-to-chromium@npm:1.4.323"
+  checksum: 9aad01f3ec7a6cee2c083dd7dda085b8aa6c7fb57f24b435933efd18ea823383b6c4d514b208cbca55d95f82a6d27939db5a329e6bc7db3cb2468d6b6ce976ad
   languageName: node
   linkType: hard
 
@@ -4397,7 +4397,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo-splash-screen@npm:^0.18.1":
+"expo-splash-screen@npm:~0.18.1":
   version: 0.18.1
   resolution: "expo-splash-screen@npm:0.18.1"
   dependencies:
@@ -4416,7 +4416,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"expo@npm:^48.0.0":
+"expo@npm:~48.0.5":
   version: 48.0.5
   resolution: "expo@npm:48.0.5"
   dependencies:
@@ -5151,15 +5151,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hypertrack-sdk-expo@file:../sdk-expo::locator=quickstart-expo%40workspace%3A.":
+"hypertrack-sdk-expo@npm:3.0.0":
   version: 3.0.0
-  resolution: "hypertrack-sdk-expo@file:../sdk-expo#../sdk-expo::hash=2f3b27&locator=quickstart-expo%40workspace%3A."
+  resolution: "hypertrack-sdk-expo@npm:3.0.0"
   dependencies:
     "@expo/config-plugins": ^5.0.0
     expo-modules-core: ^1.0.0
   peerDependencies:
     expo: ^48.0.0
-  checksum: a13b2726ffcd940d55b2ed7586e6ea41bfb0d4634db45e5e29b4b34cdcb317fb76e43c7cac983d66d873d85efe345495603b82ef0064d1601f36193678b91642
+  checksum: d9462e9dabd8ef122fc6df47cd924ec35af8480e08e3b274aefab23de1c201cd03435d86336f36a69bf6b4bf1170f9216e51283d68ac8fd3c3c150f49aa323c6
   languageName: node
   linkType: hard
 
@@ -7784,11 +7784,11 @@ __metadata:
     "@babel/core": ^7.12.9
     "@types/react": ~18.0.14
     "@types/react-native": ~0.70.6
-    expo: ^48.0.0
+    expo: ~48.0.5
     expo-build-properties: ^0.5.1
-    expo-splash-screen: ^0.18.1
+    expo-splash-screen: ~0.18.1
     expo-status-bar: ^1.4.2
-    hypertrack-sdk-expo: "file:../sdk-expo"
+    hypertrack-sdk-expo: 3.0.0
     hypertrack-sdk-react-native: 9.0.0
     react: 18.2.0
     react-dom: 18.1.0

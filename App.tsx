@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
-import { HyperTrack } from 'hypertrack-sdk-react-native'
+import { HyperTrack, HyperTrackError } from 'hypertrack-sdk-react-native'
 
 import React, {useEffect, useRef, useState} from 'react';
 import {
@@ -24,14 +24,14 @@ const Button = ({title, onPress}: {title: string; onPress: () => void}) => (
   </Pressable>
 );
 
-const PUBLISHABLE_KEY = 'Put_your_publishable_key_here';
+const PUBLISHABLE_KEY = "Put_your_publishable_key_here";
 
 const App = () => {
   const hyperTrack = useRef<HyperTrack | null>(null);
   const [deviceIdState, setDeviceIdState] = useState('');
   const [isAvailableState, setAvailabilityState] = useState(false);
   const [isTrackingState, setIsTrackingState] = useState(false);
-  const [errorsState, setErrorsState] = useState([]);
+  const [errorsState, setErrorsState] = useState<HyperTrackError[]>([]);
 
   const errorsListener = useRef<EmitterSubscription | null | undefined>(null);
   const trackingListener = useRef<EmitterSubscription | null | undefined>(null);

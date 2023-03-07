@@ -20,8 +20,7 @@ For information about how to get started with React Native SDK, please check thi
 
 ### Install Dependencies
 
-Run
-- `yarn`
+Run `yarn`
 
 ### Update the publishable key
 
