@@ -8,15 +8,17 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "expo": "~48.0.15",
+    "expo": "~48.0.21",
     "expo-build-properties": "^0.5.1",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "^1.4.2",
-    "hypertrack-sdk-expo": "../sdk-expo",
-    "hypertrack-sdk-react-native": "https://github.com/hypertrack/sdk-react-native#new-sdk-api",
+    "hypertrack-sdk-expo": "4.0.1",
+    "hypertrack-sdk-react-native": "12.0.0",
+    "hypertrack-sdk-react-native-plugin-android-location-services-google": "12.0.0",
+    "hypertrack-sdk-react-native-plugin-android-push-service-firebase": "12.0.0",
     "react": "18.2.0",
     "react-dom": "18.1.0",
-    "react-native": "0.71.7",
+    "react-native": "0.71.14",
     "react-native-web": "^0.18.9"
   },
   "devDependencies": {
