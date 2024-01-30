@@ -17,9 +17,8 @@ build-android-online:
 
 clean:
   rm -rf node_modules
-  npx yarn cache clean
+  npm cache clean --force
   npx pod deintegrate ios/quickstartexpo.xcodeproj
-  cd android && ./gradlew clean && cd ..
 
 compile:
   npx tsc
@@ -69,14 +68,14 @@ run-ios-device-clean device="": compile
   just _run ":ios" "-d {{device}} --no-build-cache"
 
 setup: hooks
-  yarn install
+  npm install
   just prebuild
   npx pod-install
 
 start-metro flags="": compile
-  npx yarn start {{flags}}
+  npm start {{flags}}
 
 start-metro-clean: (start-metro "-c")
 
 use-local-expo-dependency: hooks
-  yarn add hypertrack-sdk-expo@file:../sdk-expo
+  npm install --save ../sdk-expo
