@@ -3,8 +3,8 @@
 [![GitHub](https://img.shields.io/github/license/hypertrack/quickstart-expo?color=orange)](./LICENSE)
 [![hypertrack-sdk-expo](https://img.shields.io/badge/hypertrack_sdk_expo-3.0.0-brightgreen.svg)](https://github.com/hypertrack/sdk-expo)
 [![hypertrack-sdk-react-native](https://img.shields.io/badge/hypertrack_sdk_react_native-9.0.0-brightgreen.svg)](https://github.com/hypertrack/sdk-react-native)
- 
-[HyperTrack](https://www.hypertrack.com/) lets you add live location tracking to your mobile app. Live location is made available along with ongoing activity, tracking controls and tracking outage with reasons. 
+
+[HyperTrack](https://www.hypertrack.com/) lets you add live location tracking to your mobile app. Live location is made available along with ongoing activity, tracking controls and tracking outage with reasons.
 
 This repo contains an example React Native app that has everything you need to get started.
 
@@ -18,9 +18,10 @@ For information about how to get started with React Native SDK, please check thi
 
 ### Clone Quickstart app
 
-### Install Dependencies
+### Setup the project
 
-Run `yarn`
+- [install `just`](https://github.com/casey/just?tab=readme-ov-file#installation) (if you don't have it): `brew install just`
+- run `just setup` from the root of your cloned repository. If you don't have just
 
 ### Update the publishable key
 
