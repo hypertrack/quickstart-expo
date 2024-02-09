@@ -20,23 +20,39 @@ For information about how to get started with React Native SDK, please check thi
 
 ### Setup the project
 
-- [install `just`](https://github.com/casey/just?tab=readme-ov-file#installation) (if you don't have it): `brew install just`
-- run `just setup` from the root of your cloned repository. If you don't have just
+- `npm install`
+- `npx expo prebuild`
+- `npx pod-install`
 
-### Update the publishable key
+### Set your publishable key
 
-Insert your HyperTrack publishable key to `const PUBLISHABLE_KEY` in `App.tsx`
+Set your HyperTrack publishable key in `app.json` as the value for `publishableKey` (search project for `Paste_your_publishable_key_here` if you don't see it)
 
-### [Set up silent push notifications](https://hypertrack.com/docs/install-sdk-expo/#set-up-silent-push-notifications)
+### Setup silent push notifications
+
+Push notification setup depends on the workflow of your choosing.
+
+#### Managed workflow
 
 HyperTrack SDK needs Firebase Cloud Messaging to manage on-device tracking as well as enable using HyperTrack cloud APIs from your server to control the tracking.
 
 - For iOS, to enable push notifcations you need to add [push notifications credentials](https://docs.expo.dev/app-signing/managed-credentials/#ios)
 - For Android, to enable push notifcations you need to use [FCM for Push Notifications](https://docs.expo.dev/push-notifications/using-fcm/)
 
+#### Bare workflow
+
+Follow the instructions on setting up silent push notifications [in our docs](https://hypertrack.com/docs/install-sdk-expo/#set-up-silent-push-notifications).
+
+HyperTrack SDK needs Firebase Cloud Messaging and APNS to manage on-device tracking as well as enable using HyperTrack cloud APIs from your server to control the tracking.
+
 ### Run the app
 
-[Build and run the app with Expo EAS build](https://docs.expo.dev/build/setup/)
+Depending on your workflow you'll want to run the project in following ways:
+
+- managed: [build and run the app with Expo EAS build](https://docs.expo.dev/build/setup/)
+- bare:
+  - android: `npx expo run:android`
+  - ios: `npx expo run:ios`
 
 ### Enable permissions
 
