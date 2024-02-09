@@ -28,11 +28,9 @@ Follow the [instructions on setting up publishable key](https://hypertrack.com/d
 
 ### Setup silent push notifications
 
-Push notification setup depends on the workflow of your choosing.
+Push notification setup depends on the workflow of your choosing. HyperTrack SDK needs Firebase Cloud Messaging and APNS to manage on-device tracking as well as enable using HyperTrack cloud APIs from your server to control the tracking.
 
 #### Managed workflow
-
-HyperTrack SDK needs Firebase Cloud Messaging to manage on-device tracking as well as enable using HyperTrack cloud APIs from your server to control the tracking.
 
 - For iOS, to enable push notifcations you need to add [push notifications credentials](https://docs.expo.dev/app-signing/managed-credentials/#ios)
 - For Android, to enable push notifcations you need to use [FCM for Push Notifications](https://docs.expo.dev/push-notifications/using-fcm/)
@@ -40,8 +38,6 @@ HyperTrack SDK needs Firebase Cloud Messaging to manage on-device tracking as we
 #### Bare workflow
 
 Follow the instructions on setting up silent push notifications [in our docs](https://hypertrack.com/docs/install-sdk-expo/#set-up-silent-push-notifications).
-
-HyperTrack SDK needs Firebase Cloud Messaging and APNS to manage on-device tracking as well as enable using HyperTrack cloud APIs from your server to control the tracking.
 
 ### Run the app
 
