@@ -16,8 +16,6 @@ For information about how to get started with React Native SDK, please check thi
 
 [Sign up](https://dashboard.hypertrack.com/signup) for HyperTrack and get your publishable key from the [Setup page](https://dashboard.hypertrack.com/setup).
 
-### Clone Quickstart app
-
 ### Setup the project
 
 - `npm install`
@@ -26,7 +24,7 @@ For information about how to get started with React Native SDK, please check thi
 
 ### Set your publishable key
 
-Set your HyperTrack publishable key in `app.json` as the value for `publishableKey` (search project for `Paste_your_publishable_key_here` if you don't see it)
+Follow the [instructions on setting up publishable key](https://hypertrack.com/docs/install-sdk-expo#set-the-publishable-key) in our docs.
 
 ### Setup silent push notifications
 
