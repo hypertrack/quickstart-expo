@@ -1,3 +1,5 @@
+alias a := add-plugin
+alias al := add-plugin-local
 alias cl := clean
 alias cm := compile
 alias pa := prebuild-android
@@ -12,6 +14,54 @@ alias s:= setup
 alias sm := start-metro
 alias ul := use-local-expo-dependency
 
+# Source: https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+# \ are escaped
+SEMVER_REGEX := "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?"
+
+LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_location_services_google"
+LOCATION_SERVICES_GOOGLE_19_0_1_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_location_services_google_19_0_1"
+PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_push_service_firebase"
+SDK_PLUGIN_LOCAL_PATH := "../sdk-react-native/sdk"
+
+add-plugin version: hooks
+    #!/usr/bin/env sh
+    set -euo pipefail
+
+    if grep -q '"hypertrack-sdk-react-native"' package.json; then
+        npm uninstall hypertrack-sdk-react-native
+    fi
+    if grep -q '"hypertrack-sdk-react-native-plugin-android-location-services-google"' package.json; then
+        npm uninstall hypertrack-sdk-react-native-plugin-android-location-services-google
+    fi
+    if grep -q '"hypertrack-sdk-react-native-plugin-android-push-service-firebase"' package.json; then
+        npm uninstall hypertrack-sdk-react-native-plugin-android-push-service-firebase
+    fi
+
+    MAJOR_VERSION=$(echo {{version}} | grep -o '^[0-9]\+')
+    if [ $MAJOR_VERSION -ge 12 ]; then
+        npm i hypertrack-sdk-react-native-plugin-android-location-services-google@{{version}}
+        npm i hypertrack-sdk-react-native-plugin-android-push-service-firebase@{{version}}
+    fi
+    npm i hypertrack-sdk-react-native@{{version}}
+
+add-plugin-local: hooks
+    #!/usr/bin/env sh
+    set -euo pipefail
+
+    if grep -q '"hypertrack-sdk-react-native"' package.json; then
+        npm uninstall hypertrack-sdk-react-native
+    fi
+    if grep -q '"hypertrack-sdk-react-native-plugin-android-location-services-google"' package.json; then
+        npm uninstall hypertrack-sdk-react-native-plugin-android-location-services-google
+    fi
+    if grep -q '"hypertrack-sdk-react-native-plugin-android-push-service-firebase"' package.json; then
+        npm uninstall hypertrack-sdk-react-native-plugin-android-push-service-firebase
+    fi
+    npm i hypertrack-sdk-react-native@file:{{SDK_PLUGIN_LOCAL_PATH}}
+    npm i hypertrack-sdk-react-native-plugin-android-location-services-google@file:{{LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH}}
+    npm i hypertrack-sdk-react-native-plugin-android-push-service-firebase@file:{{PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH}}
+
+
 build-android-online:
   eas build:run -p android
 
@@ -25,6 +75,11 @@ compile:
 
 create-eas-online-build:
   eas build -p android --profile preview
+
+extract-plugin-nm:
+    rm -rf {{SDK_PLUGIN_LOCAL_PATH}}/node_modules
+    mkdir {{SDK_PLUGIN_LOCAL_PATH}}/node_modules
+    cp -r node_modules/hypertrack-sdk-react-native/node_modules {{SDK_PLUGIN_LOCAL_PATH}}/node_modules
 
 hooks:
   chmod +x .githooks/pre-push
