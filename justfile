@@ -42,7 +42,7 @@ add-plugin version: hooks
         npm i --save-exact hypertrack-sdk-react-native-plugin-android-location-services-google@{{version}}
         npm i --save-exact hypertrack-sdk-react-native-plugin-android-push-service-firebase@{{version}}
     fi
-    npm i hypertrack-sdk-react-native@{{version}}
+    npm i --save-exact hypertrack-sdk-react-native@{{version}}
 
 add-plugin-local: hooks
     #!/usr/bin/env sh
