@@ -39,10 +39,10 @@ add-plugin version: hooks
 
     MAJOR_VERSION=$(echo {{version}} | grep -o '^[0-9]\+')
     if [ $MAJOR_VERSION -ge 12 ]; then
-        npm i hypertrack-sdk-react-native-plugin-android-location-services-google@{{version}}
-        npm i hypertrack-sdk-react-native-plugin-android-push-service-firebase@{{version}}
+        npm i --save-exact hypertrack-sdk-react-native-plugin-android-location-services-google@{{version}}
+        npm i --save-exact hypertrack-sdk-react-native-plugin-android-push-service-firebase@{{version}}
     fi
-    npm i hypertrack-sdk-react-native@{{version}}
+    npm i --save-exact hypertrack-sdk-react-native@{{version}}
 
 add-plugin-local: hooks
     #!/usr/bin/env sh
