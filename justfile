@@ -1,7 +1,10 @@
 alias a := add-plugin
 alias al := add-plugin-local
+alias ap := add-plugin
 alias cl := clean
 alias cm := compile
+alias ogp := open-github-prs
+alias oi := open-ios
 alias pa := prebuild-android
 alias pi := prebuild-ios
 alias ra := run-android
@@ -13,6 +16,11 @@ alias ridc := run-ios-device-clean
 alias s:= setup
 alias sm := start-metro
 alias ul := use-local-expo-dependency
+alias urs := update-react-native-sdk
+
+SDK_NAME := "HyperTrack SDK Expo"
+SDK_REPOSITORY_NAME := "sdk-expo"
+QUICKSTART_REPOSITORY_NAME := "quickstart-expo"
 
 # Source: https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
 # \ are escaped
@@ -88,6 +96,9 @@ hooks:
 open-android:
   studio android
 
+open-github-prs:
+    open "https://github.com/hypertrack/{{QUICKSTART_REPOSITORY_NAME}}/pulls"
+
 open-ios:
   open ios/quickstartexpo.xcworkspace
 
@@ -134,3 +145,9 @@ start-metro-clean: (start-metro "-c")
 
 use-local-expo-dependency: hooks
   npm install --save ../sdk-expo
+
+update-react-native-sdk version: hooks
+    git checkout -b update-sdk-{{version}}
+    just add-plugin {{version}}
+    git commit -am "Update {{SDK_NAME}} to {{version}}"
+    just open-github-prs
