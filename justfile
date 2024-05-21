@@ -1,4 +1,5 @@
 alias a := add-plugin
+alias ael := add-expo-plugin-local
 alias al := add-plugin-local
 alias ap := add-plugin
 alias cl := clean
@@ -30,6 +31,8 @@ LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_androi
 LOCATION_SERVICES_GOOGLE_19_0_1_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_location_services_google_19_0_1"
 PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_push_service_firebase"
 SDK_PLUGIN_LOCAL_PATH := "../sdk-react-native/sdk"
+
+add-expo-plugin-local: use-local-expo-dependency
 
 add-plugin version: hooks
     #!/usr/bin/env sh
