@@ -2,6 +2,7 @@ alias a := add-plugin
 alias ael := add-expo-plugin-local
 alias al := add-plugin-local
 alias ap := add-plugin
+alias cjcfqrn := copy-js-code-from-quickstart-react-native
 alias cl := clean
 alias cm := compile
 alias ogp := open-github-prs
@@ -30,6 +31,7 @@ SEMVER_REGEX := "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d
 LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_location_services_google"
 LOCATION_SERVICES_GOOGLE_19_0_1_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_location_services_google_19_0_1"
 PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_push_service_firebase"
+QUICKSTART_REACT_NATIVE_LOCAL_PATH := "../quickstart-react-native"
 SDK_PLUGIN_LOCAL_PATH := "../sdk-react-native/sdk"
 
 add-expo-plugin-local: use-local-expo-dependency
@@ -83,6 +85,10 @@ clean:
 
 compile:
   npx tsc
+
+copy-js-code-from-quickstart-react-native:
+  cp -f {{QUICKSTART_REACT_NATIVE_LOCAL_PATH}}/src/App.tsx .
+
 
 create-eas-online-build:
   eas build -p android --profile preview
