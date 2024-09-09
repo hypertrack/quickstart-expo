@@ -139,7 +139,7 @@ run-ios-device-clean device="": compile
 setup: hooks
   npm install
   just prebuild
-  npx pod-install
+  cd ios && pod install
 
 start-metro flags="": compile
   npm start {{flags}}
