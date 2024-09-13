@@ -28,6 +28,7 @@ QUICKSTART_REPOSITORY_NAME := "quickstart-expo"
 # \ are escaped
 SEMVER_REGEX := "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?"
 
+ACTIVITY_SERVICE_GOOGLE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_activity_service_google"
 LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_location_services_google"
 LOCATION_SERVICES_GOOGLE_19_0_1_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_location_services_google_19_0_1"
 PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_push_service_firebase"
@@ -43,6 +44,9 @@ add-plugin version: hooks
     if grep -q '"hypertrack-sdk-react-native"' package.json; then
         npm uninstall hypertrack-sdk-react-native
     fi
+    if grep -q '"hypertrack-sdk-react-native-plugin-android-activity-service-google"' package.json; then
+        npm uninstall hypertrack-sdk-react-native-plugin-android-activity-service-google
+    fi
     if grep -q '"hypertrack-sdk-react-native-plugin-android-location-services-google"' package.json; then
         npm uninstall hypertrack-sdk-react-native-plugin-android-location-services-google
     fi
@@ -52,6 +56,7 @@ add-plugin version: hooks
 
     MAJOR_VERSION=$(echo {{version}} | grep -o '^[0-9]\+')
     if [ $MAJOR_VERSION -ge 12 ]; then
+        npm i --save-exact hypertrack-sdk-react-native-plugin-android-activity-service-google@{{version}}
         npm i --save-exact hypertrack-sdk-react-native-plugin-android-location-services-google@{{version}}
         npm i --save-exact hypertrack-sdk-react-native-plugin-android-push-service-firebase@{{version}}
     fi
@@ -64,6 +69,9 @@ add-plugin-local: hooks
     if grep -q '"hypertrack-sdk-react-native"' package.json; then
         npm uninstall hypertrack-sdk-react-native
     fi
+    if grep -q '"hypertrack-sdk-react-native-plugin-android-activity-service-google"' package.json; then
+        npm uninstall hypertrack-sdk-react-native-plugin-android-activity-service-google
+    fi
     if grep -q '"hypertrack-sdk-react-native-plugin-android-location-services-google"' package.json; then
         npm uninstall hypertrack-sdk-react-native-plugin-android-location-services-google
     fi
@@ -71,6 +79,7 @@ add-plugin-local: hooks
         npm uninstall hypertrack-sdk-react-native-plugin-android-push-service-firebase
     fi
     npm i hypertrack-sdk-react-native@file:{{SDK_PLUGIN_LOCAL_PATH}}
+    npm i hypertrack-sdk-react-native-plugin-android-activity-service-google@file:{{ACTIVITY_SERVICE_GOOGLE_PLUGIN_LOCAL_PATH}}
     npm i hypertrack-sdk-react-native-plugin-android-location-services-google@file:{{LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH}}
     npm i hypertrack-sdk-react-native-plugin-android-push-service-firebase@file:{{PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH}}
 
@@ -143,6 +152,7 @@ run-ios-device-clean device="": compile
   just _run ":ios" "-d {{device}} --no-build-cache"
 
 setup: hooks
+  npm install --global expo-cli
   npm install
   just prebuild
   cd ios && pod install
