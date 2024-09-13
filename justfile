@@ -2,6 +2,7 @@ alias a := add-plugin
 alias ael := add-expo-plugin-local
 alias al := add-plugin-local
 alias ap := add-plugin
+alias cfrn := copy-js-code-from-quickstart-react-native
 alias cl := clean
 alias cm := compile
 alias ogp := open-github-prs
@@ -27,9 +28,11 @@ QUICKSTART_REPOSITORY_NAME := "quickstart-expo"
 # \ are escaped
 SEMVER_REGEX := "(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?"
 
+ACTIVITY_SERVICE_GOOGLE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_activity_service_google"
 LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_location_services_google"
 LOCATION_SERVICES_GOOGLE_19_0_1_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_location_services_google_19_0_1"
 PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_push_service_firebase"
+QUICKSTART_REACT_NATIVE_LOCAL_PATH := "../quickstart-react-native"
 SDK_PLUGIN_LOCAL_PATH := "../sdk-react-native/sdk"
 
 add-expo-plugin-local: use-local-expo-dependency
@@ -41,6 +44,9 @@ add-plugin version: hooks
     if grep -q '"hypertrack-sdk-react-native"' package.json; then
         npm uninstall hypertrack-sdk-react-native
     fi
+    if grep -q '"hypertrack-sdk-react-native-plugin-android-activity-service-google"' package.json; then
+        npm uninstall hypertrack-sdk-react-native-plugin-android-activity-service-google
+    fi
     if grep -q '"hypertrack-sdk-react-native-plugin-android-location-services-google"' package.json; then
         npm uninstall hypertrack-sdk-react-native-plugin-android-location-services-google
     fi
@@ -50,6 +56,7 @@ add-plugin version: hooks
 
     MAJOR_VERSION=$(echo {{version}} | grep -o '^[0-9]\+')
     if [ $MAJOR_VERSION -ge 12 ]; then
+        npm i --save-exact hypertrack-sdk-react-native-plugin-android-activity-service-google@{{version}}
         npm i --save-exact hypertrack-sdk-react-native-plugin-android-location-services-google@{{version}}
         npm i --save-exact hypertrack-sdk-react-native-plugin-android-push-service-firebase@{{version}}
     fi
@@ -62,6 +69,9 @@ add-plugin-local: hooks
     if grep -q '"hypertrack-sdk-react-native"' package.json; then
         npm uninstall hypertrack-sdk-react-native
     fi
+    if grep -q '"hypertrack-sdk-react-native-plugin-android-activity-service-google"' package.json; then
+        npm uninstall hypertrack-sdk-react-native-plugin-android-activity-service-google
+    fi
     if grep -q '"hypertrack-sdk-react-native-plugin-android-location-services-google"' package.json; then
         npm uninstall hypertrack-sdk-react-native-plugin-android-location-services-google
     fi
@@ -69,6 +79,7 @@ add-plugin-local: hooks
         npm uninstall hypertrack-sdk-react-native-plugin-android-push-service-firebase
     fi
     npm i hypertrack-sdk-react-native@file:{{SDK_PLUGIN_LOCAL_PATH}}
+    npm i hypertrack-sdk-react-native-plugin-android-activity-service-google@file:{{ACTIVITY_SERVICE_GOOGLE_PLUGIN_LOCAL_PATH}}
     npm i hypertrack-sdk-react-native-plugin-android-location-services-google@file:{{LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH}}
     npm i hypertrack-sdk-react-native-plugin-android-push-service-firebase@file:{{PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH}}
 
@@ -83,6 +94,10 @@ clean:
 
 compile:
   npx tsc
+
+copy-js-code-from-quickstart-react-native:
+  cp -f {{QUICKSTART_REACT_NATIVE_LOCAL_PATH}}/src/App.tsx .
+
 
 create-eas-online-build:
   eas build -p android --profile preview
@@ -137,9 +152,10 @@ run-ios-device-clean device="": compile
   just _run ":ios" "-d {{device}} --no-build-cache"
 
 setup: hooks
+  npm install --global expo-cli
   npm install
   just prebuild
-  npx pod-install
+  cd ios && pod install
 
 start-metro flags="": compile
   npm start {{flags}}
