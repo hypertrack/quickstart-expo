@@ -1,10 +1,12 @@
 alias a := add-plugin
 alias ael := add-expo-plugin-local
+alias aep := add-expo-plugin
 alias al := add-plugin-local
 alias ap := add-plugin
 alias cfrn := copy-js-code-from-quickstart-react-native
 alias cl := clean
 alias cm := compile
+alias ev := expo-version
 alias ogp := open-github-prs
 alias oi := open-ios
 alias pa := prebuild-android
@@ -17,8 +19,8 @@ alias rid := run-ios-device
 alias ridc := run-ios-device-clean
 alias s:= setup
 alias sm := start-metro
-alias ul := use-local-expo-dependency
 alias urs := update-react-native-sdk
+alias v := version
 
 SDK_NAME := "HyperTrack SDK Expo"
 SDK_REPOSITORY_NAME := "sdk-expo"
@@ -35,7 +37,17 @@ PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH := "../sdk-react-native/plugin_android_p
 QUICKSTART_REACT_NATIVE_LOCAL_PATH := "../quickstart-react-native"
 SDK_PLUGIN_LOCAL_PATH := "../sdk-react-native/sdk"
 
-add-expo-plugin-local: use-local-expo-dependency
+add-expo-plugin version: hooks
+    #!/usr/bin/env sh 
+    set -euo pipefail
+
+    if grep -q '"hypertrack-sdk-expo"' package.json; then
+      npm uninstall hypertrack-sdk-expo
+    fi
+    npm i --save-exact hypertrack-sdk-expo@{{version}}
+
+add-expo-plugin-local: hooks
+    npm install --save ../sdk-expo
 
 add-plugin version: hooks
     #!/usr/bin/env sh
@@ -102,6 +114,9 @@ copy-js-code-from-quickstart-react-native:
 create-eas-online-build:
   eas build -p android --profile preview
 
+expo-version:
+  @cat package.json | grep hypertrack-sdk-expo | head -n 1 | grep -o -E '{{SEMVER_REGEX}}'
+
 extract-plugin-nm:
     rm -rf {{SDK_PLUGIN_LOCAL_PATH}}/node_modules
     mkdir {{SDK_PLUGIN_LOCAL_PATH}}/node_modules
@@ -162,11 +177,12 @@ start-metro flags="": compile
 
 start-metro-clean: (start-metro "-c")
 
-use-local-expo-dependency: hooks
-  npm install --save ../sdk-expo
-
 update-react-native-sdk version: hooks
     git checkout -b update-sdk-{{version}}
     just add-plugin {{version}}
     git commit -am "Update {{SDK_NAME}} to {{version}}"
     just open-github-prs
+
+version:
+    @cat package.json | grep hypertrack-sdk-react-native | head -n 1 | grep -o -E '{{SEMVER_REGEX}}'
+
