@@ -10,9 +10,10 @@
       [
         "hypertrack-sdk-expo",
         {
-          "publishableKey": "Paste_your_publishable_key_here",
+          "allowMockLocations": true,
           "locationPermission": "PUT_YOUR_PERMISSION_HINT_MESSAGE_HERE",
-          "motionPermission": "PUT_YOUR_PERMISSION_HINT_MESSAGE_HERE"
+          "motionPermission": "PUT_YOUR_PERMISSION_HINT_MESSAGE_HERE",
+          "publishableKey": "Paste_your_publishable_key_here"
         }
       ],
       [
