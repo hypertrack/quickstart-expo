@@ -180,7 +180,7 @@ start-metro-clean: (start-metro "-c")
 update-react-native-sdk version: hooks
     git checkout -b update-sdk-{{version}}
     just add-plugin {{version}}
-    git commit -am "Update {{SDK_NAME}} to {{version}}"
+    git commit -am "Update HyperTrack SDK React Native to {{version}}"
     just open-github-prs
 
 version:
