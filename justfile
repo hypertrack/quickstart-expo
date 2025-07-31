@@ -38,7 +38,7 @@ QUICKSTART_REACT_NATIVE_LOCAL_PATH := "../quickstart-react-native"
 SDK_PLUGIN_LOCAL_PATH := "../sdk-react-native/sdk"
 
 add-expo-plugin version: hooks
-    #!/usr/bin/env sh 
+    #!/usr/bin/env sh
     set -euo pipefail
 
     if grep -q '"hypertrack-sdk-expo"' package.json; then
@@ -105,7 +105,7 @@ clean:
   npx pod deintegrate ios/quickstartexpo.xcodeproj
 
 compile:
-  npx tsc
+  npx tsc --noEmit
 
 copy-js-code-from-quickstart-react-native:
   cp -f {{QUICKSTART_REACT_NATIVE_LOCAL_PATH}}/src/App.tsx .

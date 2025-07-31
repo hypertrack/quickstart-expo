@@ -22,6 +22,11 @@ import HyperTrack, {
   Result,
 } from 'hypertrack-sdk-react-native';
 
+type EnrichedOrder = {
+  orderHandle: string;
+  geofenceResult: Result<boolean, LocationError>;
+};
+
 const Button = ({title, onPress}: {title: string; onPress: () => void}) => (
   <Pressable
     style={({pressed}) => [
@@ -41,7 +46,7 @@ const App = () => {
   const [isAvailableState, setIsAvailableState] = useState(false);
   const [isTrackingState, setIsTrackingState] = useState(false);
   const [locationState, setLocationState] = useState('');
-  const [ordersState, setOrdersState] = useState(new Map<string, Order>());
+  const [ordersState, setOrdersState] = useState(new Map<string, EnrichedOrder>());
 
   const errorsListener = useRef<EmitterSubscription | null | undefined>(null);
   const isAvailableListener = useRef<EmitterSubscription | null | undefined>(
@@ -124,9 +129,21 @@ const App = () => {
         );
 
         ordersListener.current = HyperTrack.subscribeToOrders(
-          (orders: Map<string, Order>) => {
+          async (orders: Map<string, Order>) => {
             console.log('Listener orders: ', orders);
-            setOrdersState(orders);
+            
+            // Load geofence data for all orders
+            const enrichedOrders = new Map<string, EnrichedOrder>();
+            const promises = Array.from(orders.entries()).map(async ([handle, order]) => {
+              const result = await order.isInsideGeofence();
+              enrichedOrders.set(handle, {
+                orderHandle: handle,
+                geofenceResult: result,
+              });
+            });
+            
+            await Promise.all(promises);
+            setOrdersState(enrichedOrders);
           },
         );
       } catch (error) {
@@ -254,7 +271,7 @@ const App = () => {
   const getOrders = async () => {
     const orders = await HyperTrack.getOrders();
     console.log('Orders:', orders);
-    Alert.alert('Orders', getOrdersText(orders));
+    Alert.alert('Orders', getOrdersText(ordersState));
   };
 
   const locate = async () => {
@@ -300,7 +317,9 @@ const App = () => {
               <Text selectable style={styles.text}>
                 {order.orderHandle}
               </Text>
-              <Text>{getIsInsideGeofenceText(order.isInsideGeofence)}</Text>
+              <Text>
+                {getIsInsideGeofenceText(order.geofenceResult)}
+              </Text>
             </View>
           );
         })}
@@ -472,12 +491,10 @@ function getIsInsideGeofenceText(
   }
 }
 
-function getOrdersText(orders: Map<string, Order>) {
+function getOrdersText(orders: Map<string, EnrichedOrder>) {
   return Array.from(orders.values())
     .map(order => {
-      return `${order.orderHandle}:\n\t\t${getIsInsideGeofenceText(
-        order.isInsideGeofence,
-      )}`;
+      return `${order.orderHandle}:\n\t\t${getIsInsideGeofenceText(order.geofenceResult)}`;
     })
     .join('\n');
 }
