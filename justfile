@@ -6,6 +6,7 @@ alias ap := add-plugin
 alias cfrn := copy-js-code-from-quickstart-react-native
 alias cl := clean
 alias cm := compile
+alias d := doctor
 alias ev := expo-version
 alias ogp := open-github-prs
 alias oi := open-ios
@@ -106,6 +107,9 @@ clean:
 
 compile:
   npx tsc --noEmit
+
+doctor:
+  npx expo-doctor
 
 copy-js-code-from-quickstart-react-native:
   cp -f {{QUICKSTART_REACT_NATIVE_LOCAL_PATH}}/src/App.tsx .
