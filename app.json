@@ -20,7 +20,10 @@
         {
           "android": {
             "minSdkVersion": 23,
-            "targetSdkVersion": 33
+            "targetSdkVersion": 34
+          },
+          "ios": {
+            "deploymentTarget": "15.1"
           }
         }
       ]
@@ -37,7 +40,6 @@
       "**/*"
     ],
     "ios": {
-      "deploymentTarget": "12.0",
       "supportsTablet": true,
       "bundleIdentifier": "com.hypertrack.quickstart.expo.ios"
     },
