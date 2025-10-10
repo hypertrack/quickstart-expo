@@ -157,6 +157,7 @@ open-github-prs:
 open-ios:
   open ios/quickstartexpo.xcworkspace
 
+[working-directory: 'ios']
 pod-install repo_update="false":
   #!/usr/bin/env sh
   set -euo pipefail
