@@ -120,9 +120,8 @@ clean remove-lock="false" clean-npm-cache="false" clean-cocoapods-cache="false":
 
   if {{clean-cocoapods-cache}}; then
     rm -rf ~/.cocoapods/repos/
+    npx pod deintegrate ios/quickstartexpo.xcodeproj
   fi
-
-  npx pod deintegrate ios/quickstartexpo.xcodeproj
 
 compile:
   npx tsc --noEmit
