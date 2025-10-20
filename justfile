@@ -6,14 +6,20 @@ alias ap := add-plugin
 alias cfrn := copy-js-code-from-quickstart-react-native
 alias cl := clean
 alias cm := compile
+alias d := doctor
 alias ev := expo-version
 alias ogp := open-github-prs
 alias oi := open-ios
+alias p := prebuild
+alias pc := prebuild-clean
 alias pa := prebuild-android
+alias pac := prebuild-android-clean
 alias pi := prebuild-ios
+alias pic := prebuild-ios-clean
 alias ra := run-android
 alias rad := run-android-device
 alias radc := run-android-device-clean
+alias re := reset-env
 alias ri := run-ios
 alias rid := run-ios-device
 alias ridc := run-ios-device-clean
@@ -95,21 +101,36 @@ add-plugin-local: hooks
     npm i hypertrack-sdk-react-native-plugin-android-location-services-google@file:{{LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH}}
     npm i hypertrack-sdk-react-native-plugin-android-push-service-firebase@file:{{PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH}}
 
-
 build-android-online:
   eas build:run -p android
 
-clean:
+clean remove-lock="false" clean-npm-cache="false" clean-cocoapods-cache="false":
+  #!/usr/bin/env sh
+  set -euo pipefail
+
   rm -rf node_modules
-  npm cache clean --force
-  npx pod deintegrate ios/quickstartexpo.xcodeproj
+
+  if {{remove-lock}}; then
+    rm -f package-lock.json
+  fi
+
+  if {{clean-npm-cache}}; then
+    npm cache clean --force
+  fi
+
+  if {{clean-cocoapods-cache}}; then
+    rm -rf ~/.cocoapods/repos/
+    npx pod deintegrate ios/quickstartexpo.xcodeproj
+  fi
 
 compile:
   npx tsc --noEmit
 
+doctor:
+  npx expo-doctor
+
 copy-js-code-from-quickstart-react-native:
   cp -f {{QUICKSTART_REACT_NATIVE_LOCAL_PATH}}/src/App.tsx .
-
 
 create-eas-online-build:
   eas build -p android --profile preview
@@ -135,6 +156,19 @@ open-github-prs:
 open-ios:
   open ios/quickstartexpo.xcworkspace
 
+[working-directory: 'ios']
+pod-install repo_update="false":
+  #!/usr/bin/env sh
+  set -euo pipefail
+
+  rm -f Podfile.lock
+
+  if [ "{{repo_update}}" = "true" ]; then
+    pod install --repo-update
+  else
+    pod install
+  fi
+
 [private]
 _prebuild flags="":
   npx expo prebuild {{flags}}
@@ -147,6 +181,13 @@ prebuild-android-clean: (_prebuild "--platform android --clean")
 
 prebuild-ios: (_prebuild "--platform ios")
 prebuild-ios-clean: (_prebuild "--platform ios --clean")
+
+reset-env:
+  # remove-lock=true
+  just clean true
+  npm install
+  just prebuild-clean
+  just pod-install
 
 [private]
 _run target="" flags="":
