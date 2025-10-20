@@ -20,6 +20,7 @@ alias r := reset
 alias ra := run-android
 alias rad := run-android-device
 alias radc := run-android-device-clean
+alias re := reset-env
 alias ri := run-ios
 alias rid := run-ios-device
 alias ridc := run-ios-device-clean
@@ -182,7 +183,7 @@ prebuild-android-clean: (_prebuild "--platform android --clean")
 prebuild-ios: (_prebuild "--platform ios")
 prebuild-ios-clean: (_prebuild "--platform ios --clean")
 
-reset:
+reset-env:
   # remove-lock=true
   just clean true
   npm install
