@@ -16,7 +16,6 @@ alias pa := prebuild-android
 alias pac := prebuild-android-clean
 alias pi := prebuild-ios
 alias pic := prebuild-ios-clean
-alias r := reset
 alias ra := run-android
 alias rad := run-android-device
 alias radc := run-android-device-clean
