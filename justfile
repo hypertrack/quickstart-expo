@@ -81,6 +81,8 @@ add-plugin version: hooks
     fi
     npm i --save-exact hypertrack-sdk-react-native@{{version}}
 
+    just pod-install
+
 add-plugin-local: hooks
     #!/usr/bin/env sh
     set -euo pipefail
@@ -101,6 +103,8 @@ add-plugin-local: hooks
     npm i hypertrack-sdk-react-native-plugin-android-activity-service-google@file:{{ACTIVITY_SERVICE_GOOGLE_PLUGIN_LOCAL_PATH}}
     npm i hypertrack-sdk-react-native-plugin-android-location-services-google@file:{{LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH}}
     npm i hypertrack-sdk-react-native-plugin-android-push-service-firebase@file:{{PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH}}
+
+    just pod-install
 
 build-android-online:
   eas build:run -p android
