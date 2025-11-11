@@ -3,9 +3,10 @@ alias ael := add-expo-plugin-local
 alias aep := add-expo-plugin
 alias al := add-plugin-local
 alias ap := add-plugin
+alias apa := add-plugin-archive
 alias cfrn := copy-js-code-from-quickstart-react-native
 alias cl := clean
-alias cm := compile
+alias c := compile
 alias d := doctor
 alias ev := expo-version
 alias ogp := open-github-prs
@@ -81,6 +82,10 @@ add-plugin version: hooks
     fi
     npm i --save-exact hypertrack-sdk-react-native@{{version}}
 
+    just pod-install
+
+add-plugin-archive version:
+    npm i --save ../sdk-react-native/hypertrack-sdk-react-native-{{version}}.tgz
     just pod-install
 
 add-plugin-local: hooks
