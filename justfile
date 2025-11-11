@@ -3,19 +3,21 @@ alias ael := add-expo-plugin-local
 alias aep := add-expo-plugin
 alias al := add-plugin-local
 alias ap := add-plugin
+alias apa := add-plugin-archive
 alias cfrn := copy-js-code-from-quickstart-react-native
 alias cl := clean
-alias cm := compile
+alias c := compile
 alias d := doctor
 alias ev := expo-version
 alias ogp := open-github-prs
 alias oi := open-ios
-alias p := prebuild
-alias pc := prebuild-clean
-alias pa := prebuild-android
-alias pac := prebuild-android-clean
-alias pi := prebuild-ios
-alias pic := prebuild-ios-clean
+alias pi := pod-install
+alias pr := prebuild
+alias prc := prebuild-clean
+alias pra := prebuild-android
+alias prac := prebuild-android-clean
+alias pri := prebuild-ios
+alias pric := prebuild-ios-clean
 alias ra := run-android
 alias rad := run-android-device
 alias radc := run-android-device-clean
@@ -80,6 +82,12 @@ add-plugin version: hooks
     fi
     npm i --save-exact hypertrack-sdk-react-native@{{version}}
 
+    just pod-install
+
+add-plugin-archive version:
+    npm i --save ../sdk-react-native/hypertrack-sdk-react-native-{{version}}.tgz
+    just pod-install
+
 add-plugin-local: hooks
     #!/usr/bin/env sh
     set -euo pipefail
@@ -100,6 +108,8 @@ add-plugin-local: hooks
     npm i hypertrack-sdk-react-native-plugin-android-activity-service-google@file:{{ACTIVITY_SERVICE_GOOGLE_PLUGIN_LOCAL_PATH}}
     npm i hypertrack-sdk-react-native-plugin-android-location-services-google@file:{{LOCATION_SERVICES_GOOGLE_PLUGIN_LOCAL_PATH}}
     npm i hypertrack-sdk-react-native-plugin-android-push-service-firebase@file:{{PUSH_SERVICE_FIREBASE_PLUGIN_LOCAL_PATH}}
+
+    just pod-install
 
 build-android-online:
   eas build:run -p android
