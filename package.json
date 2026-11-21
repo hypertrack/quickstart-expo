@@ -15,7 +15,7 @@
     "expo-build-properties": "~1.0.9",
     "expo-splash-screen": "~31.0.10",
     "expo-status-bar": "~3.0.8",
-    "hypertrack-sdk-expo": "7.0.0",
+    "hypertrack-sdk-expo": "7.1.0",
     "hypertrack-sdk-react-native": "14.3.0",
     "hypertrack-sdk-react-native-plugin-android-activity-service-google": "14.3.0",
     "hypertrack-sdk-react-native-plugin-android-location-services-google": "14.3.0",
